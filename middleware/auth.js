@@ -11,6 +11,7 @@ function auth(req,res,next){
         req.user = verified.user;
         next();
 
+    //if an unautherized person detected, then throws 401 error
     }catch(err){
         console.log(err);
         res.status(401).json({errorMessage :"Unauthorized"});
