@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 const Register = async(req, res) => {
 
 
-
+// Authentication Controller File
   try {
     const {  FirstName,LastName,Email,Contact,Address,Password,CPassword} = req.body;
     const Role="User"
