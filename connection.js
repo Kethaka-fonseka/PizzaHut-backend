@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
 
-const MONGODB_URL='mongodb+srv://admin:admin@pizzahut.0uekv.mongodb.net/PizzaHut?retryWrites=true&w=majority';
+const MONGODB_URL='mongodb://localhost/pizzhut';
 
 const connectDB =async () =>{
     await mongoose.connect(MONGODB_URL,{
