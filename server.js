@@ -46,6 +46,9 @@ app.use('/lists', listAPI);
 const orderAPI = require('./api/order.api');
 app.use('/orders', orderAPI);
 
+const deliveryAPI=require("./api/delivery.api");
+app.use('/deliveries',deliveryAPI);
+
 
 app.listen(PORT,() =>{
     console.log('Service is running');
