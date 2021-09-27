@@ -81,20 +81,13 @@ const getCartItemByID=async(req,res)=>{
 const getTotalPrice = async (req, res) => {
     try {
         const cartItems = await Cart.find({});
-        let total=0;
-       if(cartItems.length>0){
-           cartItems.map(item=>{
-               total=total+(item.price*item.qty);
-           })
 
-       }
         res.status(200).json({total:total})
 
     } catch (err) {
         res.status(500).json({message: err.message});
     }
 }
-
 
 
 module.exports = {
