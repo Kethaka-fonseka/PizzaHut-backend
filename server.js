@@ -35,6 +35,11 @@ app.use('/employee-management',EmployeeManagement);
 const Authentication=require('./api/Authentication/Auth.api');
 app.use('/auth',Authentication);
 
+
+//Place Order
+const placeOrder=require('./api/PlaceOrder/placeOrder');
+app.use('/place-order',placeOrder);
+
 const productAPI = require('./api/product.api');
 app.use('/products', productAPI);
 const cartAPI = require('./api/cart.api');

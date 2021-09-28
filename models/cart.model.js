@@ -22,6 +22,10 @@ const cartSchema = new mongoose.Schema({
     discount: {
         type: Number,
         required: false
+    },
+    image:{
+        type: String,
+        required: true
     }
 });
 
