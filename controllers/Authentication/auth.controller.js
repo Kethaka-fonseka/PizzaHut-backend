@@ -9,12 +9,12 @@ const Register = async(req, res) => {
 
 // Authentication Controller File
   try {
-    const {  FirstName,LastName,Email,Contact,Address,Password,CPassword} = req.body;
+    const {  FirstName,LastName,Email,Contact,Password,CPassword} = req.body;
     const Role="User"
     const Branch=" "
 
 
-    if (!FirstName ||!LastName ||!Email || !Contact || !Address || !Password || !CPassword ||!Role)
+    if (!FirstName ||!LastName ||!Email || !Contact || !Password || !CPassword ||!Role)
       return res
         .status(200)
         .json({ errorMessage: "Please enter all required fields" });
@@ -46,7 +46,6 @@ const Register = async(req, res) => {
       LastName,
       Email,
       Contact,
-      Address,
       Role,
       Branch,
       PasswordHash
@@ -83,7 +82,7 @@ const Login = async(req, res) => {
     }
     
 
-    console.log(existingUser);
+
     const token = jwt.sign({
       user: existingUser._id
     }, process.env.JWT_SECRET);
