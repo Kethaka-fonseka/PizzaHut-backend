@@ -37,6 +37,22 @@ const TransactionSchema = new mongoose.Schema({
     UserName: {
         type: String,
         required: true
+    },
+    status:{
+        type: String,
+        required: true
+    },
+    refund:{
+        type: String,
+        required: false
+    },
+    refundDate:{
+        type: String,
+        required: false
+    },
+    RefundTransaction:{
+        type: String,
+        required: false  
     }
 })
 

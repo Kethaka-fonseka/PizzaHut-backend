@@ -37,8 +37,13 @@ app.use('/auth',Authentication);
 
 
 //Place Order
-const placeOrder=require('./api/PlaceOrder/placeOrder');
-app.use('/place-order',placeOrder);
+const payment=require('./api/PaymentManagement/Payment.api.js');
+app.use('/payment',payment);
+
+//Reports
+const Report=require('./api/Report/Report.api');
+app.use('/report',Report);
+
 
 const productAPI = require('./api/product.api');
 app.use('/products', productAPI);

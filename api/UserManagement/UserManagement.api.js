@@ -32,7 +32,8 @@ router.get('/display/:id' ,UserManagement.getOneUser);
     
 router.put('/updates/:id', UserManagement.UpdateUser);
 
-router.delete('/delete/:id',UserManagement.DeleteUser);
+
+router.post('/delete/:id',UserManagement.DeleteUser);
 
 router.get('/:id', UserManagement.ContactUser); 
 

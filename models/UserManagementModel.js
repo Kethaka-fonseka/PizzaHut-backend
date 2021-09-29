@@ -26,13 +26,21 @@ Role:{
 },
 Branch:{
     type:String,
-    required: true
+    required: false
 },
 PasswordHash:{
     type:String,
     required: true
     },
 Profile:{
+    type:String,
+     required: false
+},
+LastLoginDate:{
+    type:String,
+     required: false
+},
+LastLoginTime:{
     type:String,
      required: false
 }

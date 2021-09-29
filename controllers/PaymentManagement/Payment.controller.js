@@ -19,7 +19,7 @@ const placeOrder = async (req, res) => {
         UserName,
         ProductID} = req.body;
    
-
+        const status ="Completed"
 
 
     if (!Name ||!CardNumber ||!Date || !Cvv )
@@ -38,7 +38,8 @@ const placeOrder = async (req, res) => {
             time,
             fullDate,
             Email,
-            UserName
+            UserName,
+            status
 
         });
     
