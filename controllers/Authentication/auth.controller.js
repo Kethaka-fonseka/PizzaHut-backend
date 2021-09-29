@@ -1,6 +1,7 @@
 const express = require("express");
 var router = express.Router();
 const AuthenticationModel = require("../../models/AuthenticationModel");
+const UserManagement = require("../../models/UserManagementModel");
 const bcrypt = require("bcryptjs");
 var jwt = require('jsonwebtoken');
 
@@ -60,7 +61,7 @@ const Register = async(req, res) => {
 const Login = async(req, res) => {
 
   try {
-    const { Email, Password } = req.body;
+    const { Email, Password,Dates, time } = req.body;
   
     if (!Email || !Password) {
       return res
@@ -81,17 +82,26 @@ const Login = async(req, res) => {
       return res.status(401).json({ errorMessage: "Wrong email or password" });
     }
     
+    UserManagement.updateOne({
+      LastLoginDate:Dates,
+      LastLoginTime:time
 
+          }).then(() => {
 
-    const token = jwt.sign({
-      user: existingUser._id
-    }, process.env.JWT_SECRET);
+              const token = jwt.sign({
+                user: existingUser._id
+              }, process.env.JWT_SECRET);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-    }).send({
-       users: existingUser,
-      });
+              res.cookie("token", token, {
+                httpOnly: true,
+              }).send({
+                users: existingUser,
+                });
+ 
+          }).catch((err)=>{
+              console.log(err);
+     })
+
   } catch (err) {
     console.log(err);
   }
