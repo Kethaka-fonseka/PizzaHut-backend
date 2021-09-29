@@ -85,9 +85,9 @@ try{
 
 
 const getCartItemByID=async(req,res)=>{
-    if(req.params.id!=null  && req.params.size!=null){
+    if(req.params.id!=null  && req.params.size!=null && req.params.user){
         try{
-       const cartItem=await Cart.find({product_id:req.params.id,size:req.params.size});
+       const cartItem=await Cart.find({product_id:req.params.id,size:req.params.size,user:req.params.user});
         res.status(200).json(cartItem);
         }catch (err){
             res.status(500).json({message: err.message});
