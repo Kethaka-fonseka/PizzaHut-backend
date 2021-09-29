@@ -24,7 +24,7 @@ const authentication = new mongoose.Schema({
   },
   Branch:{
     type:String,
-    required: true
+    required: false
 },
   PasswordHash: {
     type: String,
