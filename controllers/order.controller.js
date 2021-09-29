@@ -72,12 +72,35 @@ const getAllOrders = async (req, res) => {
 
 const filterOrderByStatus = async (req, res) => {
     if (req.params.status) {
+       if(req.params.status!='all'){
         try {
             const order = await Order.find({status: req.params.status});
             res.status(200).json(order);
         } catch (err) {
             res.status(500).json({message: err.message})
         }
+       }
+       else{
+        try {
+            const orders = await Order.find({});
+            res.status(200).json(orders)
+        } catch (err) {
+            res.status(500).json({message: err.message});
+        }
+       }
+    }
+}
+
+const filterByUserID=()=>{
+    if(req.params.user!=null){
+    try{
+        const order = await Order.find({user: req.params.user});
+        res.status(200).json(order);
+    }
+    catch(err){
+        res.status(500).json({message: err.message});
+    }
+
     }
 }
 
