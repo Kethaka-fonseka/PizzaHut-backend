@@ -18,6 +18,11 @@ const orderSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    user:{
+        type: String,
+        trim: true,
+        required: true
+    },
     assign_to: {
         type: String,
         trim: true,
