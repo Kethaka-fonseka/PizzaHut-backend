@@ -18,7 +18,7 @@ router.delete('/delete/all/:user',controller.deleteAllFromCarts);
 router.get('/:user', controller.getAllFromCart);
 
 //Get cart item by id
-router.get('/:id/:size',controller.getCartItemByID)
+router.get('/:user/:id/:size',controller.getCartItemByID)
 
 //Get cart total
 router.get('/total',controller.getTotalPrice)
