@@ -18,5 +18,10 @@ router.get('/', controller.getAllOrders);
 // filter by status
 router.get('/:status', controller.filterOrderByStatus);
 
+//get currrent orders
+router.get('/getcurrent/:user',controller.getCurrentOrders);
+
+//get order history
+router.get('/gethistory/:user',controller.getOrderHistory);
 
 module.exports = router;
