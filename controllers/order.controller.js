@@ -91,11 +91,11 @@ const filterOrderByStatus = async (req, res) => {
     }
 }
 
-const filterByUserID=()=>{
+const filterByUserID=async(req,res)=>{
     if(req.params.user!=null){
     try{
-        const order = await Order.find({user: req.params.user});
-        res.status(200).json(order);
+        const orders= await Order.find({user: req.params.user});
+        res.status(200).json(orders);
     }
     catch(err){
         res.status(500).json({message: err.message});
@@ -104,10 +104,53 @@ const filterByUserID=()=>{
     }
 }
 
+
+const getCurrentOrders=async(req,res)=>{
+if(req.params.user!=null){
+    try{
+        const orders = await Order.find({user: req.params.user});
+        if(orders.length>0){
+            let data=[];
+       orders.map(order=>{
+           if(order.status!='delivered'){
+            data.push(order);
+           }
+       });
+       res.status(200).json(data);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+}
+}
+
+const getOrderHistory=async(req,res)=>{
+    if(req.params.user!=null){
+        try{
+            const orders = await Order.find({user: req.params.user});
+            if(orders.length>0){
+                let data=[];
+           orders.map(order=>{
+               if(order.status=='delivered'){
+                data.push(order);
+               }
+           });
+           res.status(200).json(data);
+            }
+        }catch(err){
+            res.status(500).json({message: err.message});
+        }
+    }
+    }
+
+ 
+
 module.exports={
     addOrder,
     editOrderStatus,
     assignToOrder,
     getAllOrders,
-    filterOrderByStatus
+    filterOrderByStatus,
+    getCurrentOrders,
+    getOrderHistory
 }
