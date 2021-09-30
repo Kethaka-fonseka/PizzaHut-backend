@@ -21,5 +21,5 @@ router.get('/:user', controller.getAllFromCart);
 router.get('/:user/:id/:size',controller.getCartItemByID)
 
 //Get cart total
-router.get('/total',controller.getTotalPrice)
+router.get('/total/:user',controller.getTotalPrice)
 module.exports = router;
