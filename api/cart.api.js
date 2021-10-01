@@ -18,8 +18,12 @@ router.delete('/delete/all/:user',controller.deleteAllFromCarts);
 router.get('/:user', controller.getAllFromCart);
 
 //Get cart item by id
-router.get('/:user/:id/:size',controller.getCartItemByID)
+router.get('/:user/:id/:size',controller.getCartItemByID);
 
 //Get cart total
-router.get('/total/:user',controller.getTotalPrice)
+router.get('/total/:user',controller.getTotalPrice);
+
+//get cart ietm count
+router.get('/count/:user',controller.getCartitemCount);
+
 module.exports = router;

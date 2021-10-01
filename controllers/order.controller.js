@@ -1,4 +1,5 @@
 const Order = require('../models/order.model');
+const Product = require('../models/product.model');
 
 
 // Add  new order
@@ -143,6 +144,34 @@ const getOrderHistory=async(req,res)=>{
     }
     }
 
+    //get ordered item count product vise
+
+    const getOrderedItemCount=async(req,res)=>{
+try{
+    const products=await Product.find({});
+    const orders=await Order.find({});
+    if(products.length>0){
+    let data=[];
+    products.map(product=>{
+        let total=0;
+        orders.map(order=>{
+        order.products.map(item=>{
+            total+=item.qty;
+        })
+        })
+        let item={
+            title:product.title,
+            amount:total
+        }
+        data.push(item);
+    })
+    res.status(200).json(data);
+    }
+
+}catch(err){
+    res.status(500).json({message: err.message});  
+}
+    }
  
 
 module.exports={
@@ -152,5 +181,6 @@ module.exports={
     getAllOrders,
     filterOrderByStatus,
     getCurrentOrders,
-    getOrderHistory
+    getOrderHistory,
+    getOrderedItemCount
 }

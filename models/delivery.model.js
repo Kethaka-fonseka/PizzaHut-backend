@@ -6,7 +6,7 @@ const deliverySchema=new mongoose.Schema({
         required:true,
         trim:true
     },
-    email:{
+    user:{
         type:String,
         required:true,
         trim:true
@@ -27,6 +27,11 @@ const deliverySchema=new mongoose.Schema({
         trim:true
     },
     state:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    status:{
         type:String,
         required:true,
         trim:true

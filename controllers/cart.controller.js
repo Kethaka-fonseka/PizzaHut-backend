@@ -116,6 +116,26 @@ const getTotalPrice = async (req, res) => {
     }
 }
 
+//Get cart item count
+const getCartitemCount = async (req, res) => {
+    if(req.params.user!=null){
+      try {
+          const cartItems = await Cart.find({user:req.params.user});
+          let count=0;
+          if(cartItems.length>0){
+           cartItems.map(item=>{
+             count+=item.qty
+           });
+
+          }
+  
+          res.status(200).json({count:count});
+  
+      } catch (err) {
+          res.status(500).json({message: err.message});
+      }
+    }
+}
 
 module.exports = {
     addToCart,
@@ -124,5 +144,6 @@ module.exports = {
     getAllFromCart,
     getCartItemByID,
     getTotalPrice,
-    deleteAllFromCarts
+    deleteAllFromCarts,
+    getCartitemCount
 }
