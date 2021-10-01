@@ -18,11 +18,26 @@ const orderSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    user:{
+        type: String,
+        trim: true,
+        required: true
+    },
+    delivery_code:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'deliveries',
+        required: true,
+    },
+    branch:{
+        type: String,
+        trim: true,
+        required: false
+    },
     assign_to: {
         type: String,
         trim: true,
         required: false
-    }
+    },
 })
 
 module.exports = mongoose.model('orders', orderSchema);

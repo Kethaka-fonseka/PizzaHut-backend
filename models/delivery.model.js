@@ -22,7 +22,7 @@ const deliverySchema=new mongoose.Schema({
         trim:true
     },
      zipcode:{
-        type:Number,
+        type:Number ,
         required:true,
         trim:true
     },
