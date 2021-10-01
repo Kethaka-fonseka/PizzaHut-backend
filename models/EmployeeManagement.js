@@ -24,10 +24,6 @@ Role:{
     type:String,
     required: true
 },
-PasswordHash:{
-    type:String,
-    required: true
-    },
 Branch:{
     type:String,
      required: false

@@ -36,8 +36,8 @@ const AddUser = async (req, res) => {
 
    if(!FirstName || !LastName ||!Email || !Contact ||!Password ||!Profile || !Role || !Branch)
     return res
-    .status(400)
-    .json({errorMessage: "Please enter all required fields"});
+    .status(200)
+    .json({Message: "Please enter all required fields"});
 
     const salt = await bcrypt.genSalt();
     const PasswordHash= await bcrypt.hash(Password, salt);
@@ -54,6 +54,15 @@ const AddUser = async (req, res) => {
         Profile
     });
 
+
+    const existingUser = await AuthenticationModel.findOne({ Email });
+
+    if (existingUser)
+      return res
+        .status(200)
+        .json({ Message: "already exists an account with given email" });
+
+
     await UserManage.save().then(()=>{
         const newUser = new AuthenticationModel({
             FirstName,LastName, Email,Contact, Address,Role,Branch, PasswordHash
@@ -66,7 +75,8 @@ const AddUser = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true
         });
-          res.json({status:"Add a new user to the system"});
+
+          res.json({Message:"Success"});
           
     }).catch((err) =>{
         console.log("User adding error");
@@ -78,12 +88,12 @@ const AddUser = async (req, res) => {
 
 const DisplayUser = async (req, res) => {
     await UserManagement.find().then((UserManagement) => {
-        if (UserManagement) {
-            res.json(UserManagement); 
-        } else {
-            res.json({UserManagement:null}); 
-       }
+        console.log("WORK HERE")
+
+        res.status(200).json(UserManagement);
+       
     }).catch((err)=>{
+        console.log("ERROR HERE")
         console.log(err);
     });
 };
@@ -118,18 +128,53 @@ const UpdateUser = async  (req, res) => {
     var Email =req.body.Email;
     var Contact = req.body.Contact;
     var Role =req.body.Role;
-
+    var Branch =req.body.Branch;
+    
     const data = {
         FirstName,
         LastName,
         Email,
         Contact,
-        Role
+        Role,
+        Branch,
+ 
     }
-    const update  = await UserManagement.findByIdAndUpdate(_id,data)
+
+console.log(
+    FirstName,
+    LastName,
+    Email,
+    Contact,
+    Role,
+    Branch,
+
+    
+    )
+
+
+    const update  = await UserManagement.findByIdAndUpdate(_id,{
+        FirstName:FirstName,
+        LastName:LastName,
+        Email:Email,
+        Contact:Contact,
+        Role:Role,
+        Branch:Branch
+    })
         .then(() => {
-            console.log("Updated");
-    res.status(200).send({status:"updated", user:update});
+
+
+            AuthenticationModel.updateOne({
+                Email:Email,
+                Role:Role
+                    }).then((user) => {
+
+                        console.log("Updated", update);
+                        res.status(200).send({status:"updated", user:update});
+                    
+                    }).catch((err)=>{
+                        console.log(err);
+            })
+
    }).catch((err)=>{
         console.log(err);
         res.status(500).send({status:"Update Error"});
@@ -141,10 +186,20 @@ const UpdateUser = async  (req, res) => {
 
 const DeleteUser =  async (req, res) => {
     const _id = req.params.id;
-    await UserManagement.findByIdAndDelete(_id).then((sellers) => {
+    var Email =req.body.Email;
+
+    await UserManagement.findByIdAndDelete(_id).then((users) => {
+
+        AuthenticationModel.remove({
+            Email:Email
+        }).then((user) => {
             res.json({
                 status:"Success"
             })
+        }).catch((err)=>{
+            console.log(err);
+        })
+
     }).catch((err)=>{
         console.log(err);
     });

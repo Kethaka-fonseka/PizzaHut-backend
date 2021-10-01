@@ -18,17 +18,13 @@ const authentication = new mongoose.Schema({
     type: String,
     required: true,
   }, 
-  Address: {
-    type: String,
-    required: false,
-  },
   Role: {
     type: String,
     required: true,
   },
   Branch:{
     type:String,
-    required: true
+    required: false
 },
   PasswordHash: {
     type: String,

@@ -35,6 +35,16 @@ app.use('/employee-management',EmployeeManagement);
 const Authentication=require('./api/Authentication/Auth.api');
 app.use('/auth',Authentication);
 
+
+//Place Order
+const payment=require('./api/PaymentManagement/Payment.api.js');
+app.use('/payment',payment);
+
+//Reports
+const Report=require('./api/Report/Report.api');
+app.use('/report',Report);
+
+
 const productAPI = require('./api/product.api');
 app.use('/products', productAPI);
 const cartAPI = require('./api/cart.api');
@@ -45,6 +55,9 @@ const listAPI = require('./api/list.api');
 app.use('/lists', listAPI);
 const orderAPI = require('./api/order.api');
 app.use('/orders', orderAPI);
+
+const deliveryAPI=require("./api/delivery.api");
+app.use('/deliveries',deliveryAPI);
 
 
 app.listen(PORT,() =>{

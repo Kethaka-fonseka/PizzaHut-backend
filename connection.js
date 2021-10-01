@@ -9,7 +9,7 @@ const connectDB =async () =>{
         useNewUrlParser:true,
         useFindAndModify:false
     });
-    console.log('Database Connected !!');
+    console.log('Mongo Connection Successfully Run !!');
 }
 module.exports=connectDB;
 
