@@ -36,7 +36,6 @@ const addEmployee = async (req, res) => {
 
 const displayEmployee = async (req, res) => {
     const Branch =  req.params.Branch;
-    console.log(Branch);
     await EmployeeManagement.find({Branch: Branch}).then((UserManagement) => {
         if (UserManagement) {
             res.json(UserManagement); 
@@ -62,6 +61,29 @@ console.log("Working" , _id);
         console.log(err);
     });
 };
+
+const getChefsByBranch=async(req,res)=>{
+if(req.params.branch!=null){
+    try{
+const chefs=await EmployeeManagement.find({Branch:req.params.branch});
+res.status(200).json(chefs);
+    }catch(err){
+       res.status(400).json({err:err.message}); 
+    }
+}
+}
+
+
+const getDeliveryGuyByBranch=async(req,res)=>{
+    if(req.params.branch!=null){
+        try{
+    const chefs=await EmployeeManagement.find({Branch:req.params.branch,Role:'Delivery-Guy'});
+    res.status(200).json(chefs);
+        }catch(err){
+           res.status(400).json({err:err.message}); 
+        }
+    }
+    }
 
 
 const updateEmployee = async (req, res) => {
@@ -108,5 +130,7 @@ module.exports = {
     displayEmployee,
     displayEmployeeByID,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
+    getChefsByBranch,
+    getDeliveryGuyByBranch
 }

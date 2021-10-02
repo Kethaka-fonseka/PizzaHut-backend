@@ -8,4 +8,11 @@ router.post('/add',controller.addDelivery);
 //get all address belongs to the user profile
 router.get('/addresses/:user',controller.getPermanetAddresses)
 
+
+//update delivery address
+router.patch('/update/:id',controller.updateDelivery);
+
+//remove delivery address
+router.delete('/delete/:id',controller.removeAddress);
+
 module.exports=router;

@@ -5,11 +5,9 @@ const controller = require('../controllers/order.controller');
 // Add  new order
 router.post('/add', controller.addOrder);
 
-// update the order status
-router.patch('/edit_status/:id', controller.editOrderStatus)
+// update the order 
+router.patch('/edit/:id', controller.editOrder)
 
-// assign employee to the order
-router.patch('/assign/:id', controller.assignToOrder)
 
 // get all orders
 router.get('/', controller.getAllOrders);
@@ -25,4 +23,13 @@ router.get('/gethistory/:user',controller.getOrderHistory);
 
 //get orderd item count product vice
 router.get('/product/count',controller.getOrderedItemCount)
+
+
+//get orders that related to the delivery manager
+router.get('/delivery/orders',controller.getDeliveryManagerOrders);
+
+//get orders that related to the delivery manager
+router.get('/filter/delivery/:status',controller.filterDeliveryOrderByStatus);
+
+
 module.exports = router;

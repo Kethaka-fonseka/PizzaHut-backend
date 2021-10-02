@@ -20,35 +20,23 @@ const addOrder = async (req, res) => {
 }
 
 
+
+
 // update the order status
 
-const editOrderStatus = async (req, res) => {
-    if (req.params.id) {
-        const order = Order.findById(req.params.id);
-        if (req.body.status) {
-            order.status = req.body.status;
-        }
+const editOrder= async (req, res) => {
+    if (req.params.id!=null) {
+    
         try {
+            const order =await Order.findById(req.params.id);
+            if (req.body.status!=null) {
+                order.status = req.body.status;
+            }
+            if (req.body.assign_to!=null) {
+                order. assign_to = req.body.assign_to;
+            }
             const updatedOrder = await order.save();
             res.status(200).json(updatedOrder);
-        } catch (err) {
-            res.status(400).json({message: err.message})
-        }
-
-    }
-}
-
-// assign employee to the order
-
-const assignToOrder = async (req, res) => {
-    if (req.params.id) {
-        const order = Order.findById(req.params.id);
-        if (req.body.assign_to) {
-            order.status = req.body.assign_to;
-        }
-        try {
-            const assignedOrder = await order.save();
-            res.status(200).json(assignedOrder);
         } catch (err) {
             res.status(400).json({message: err.message})
         }
@@ -61,7 +49,7 @@ const assignToOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
     try {
-        const orders = await Order.find({});
+        const orders = await Order.find({}).populate('delivery_code');
         res.status(200).json(orders)
     } catch (err) {
         res.status(500).json({message: err.message})
@@ -174,13 +162,64 @@ try{
     }
  
 
+    //get order list that related to the delivery manager
+    const getDeliveryManagerOrders = async (req, res) => {
+        try {
+            const orders = await Order.find({}).populate('delivery_code');
+            let data=[];
+            if(orders.length>0){
+                orders.map(order=>{
+                    console.log(order.status);
+                    if(order.status!='new'&& order.status!='processing'){
+                        data.push(order);
+                    }
+                });
+            }
+            res.status(200).json(data);
+        } catch (err) {
+            res.status(500).json({message: err.message})
+        }
+    }
+
+    //get filtered order results for the delivery manager
+    const filterDeliveryOrderByStatus = async (req, res) => {
+        if (req.params.status) {
+            if(req.params.status!='all'){
+             try {
+                 const order = await Order.find({status: req.params.status});
+                 res.status(200).json(order);
+             } catch (err) {
+                 res.status(500).json({message: err.message})
+             }
+            }
+            else{
+                try {
+                    const orders = await Order.find({}).populate('delivery_code');
+                    let data=[];
+                    if(orders.length>0){
+                        orders.map(order=>{
+                            console.log(order.status);
+                            if(order.status!='new'&& order.status!='processing'){
+                                data.push(order);
+                            }
+                        });
+                    }
+                    res.status(200).json(data);
+                } catch (err) {
+                    res.status(500).json({message: err.message})
+                }
+            }
+         }   
+    }
+
 module.exports={
     addOrder,
-    editOrderStatus,
-    assignToOrder,
     getAllOrders,
     filterOrderByStatus,
     getCurrentOrders,
     getOrderHistory,
-    getOrderedItemCount
+    getOrderedItemCount,
+    editOrder,
+    getDeliveryManagerOrders,
+    filterDeliveryOrderByStatus
 }

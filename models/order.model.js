@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
     },
     delivery_code:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'deliveries',
+        ref:'delivery',
         required: true,
     },
     branch:{

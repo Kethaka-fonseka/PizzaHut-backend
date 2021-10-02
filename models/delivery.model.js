@@ -36,6 +36,11 @@ const deliverySchema=new mongoose.Schema({
         required:true,
         trim:true
     },
+    order:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'orders',
+        required: false,
+    }
 })
 
 module.exports=mongoose.model("delivery",deliverySchema)

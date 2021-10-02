@@ -44,6 +44,9 @@ app.use('/payment',payment);
 const Report=require('./api/Report/Report.api');
 app.use('/report',Report);
 
+const Promo=require('./api/promo.api');
+app.use('/promo',Promo)
+
 
 const productAPI = require('./api/product.api');
 app.use('/products', productAPI);
